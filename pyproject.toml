@@ -1,1 +1,7 @@
+[project]
+name = "eyes-disease-prediction"
+version = "0.1.0"
+
+[tool.streamlit]
+pythonVersion = "3.10"
 
