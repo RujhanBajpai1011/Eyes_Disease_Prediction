@@ -8,7 +8,11 @@ import tempfile
 
 #Tensorflow Model Prediction
 def model_prediction(test_image_path):
-    model = tf.keras.models.load_model("Trained_Model.keras")
+    model = tf.keras.models.load_model(
+    "Trained_Model.keras",
+    compile=False
+    )
+
     img = tf.keras.utils.load_img(test_image_path, target_size=(224, 224))
     x = tf.keras.utils.img_to_array(img)
     x = np.expand_dims(x, axis=0)
