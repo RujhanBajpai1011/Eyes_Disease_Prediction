@@ -8,11 +8,14 @@ import tempfile
 
 #Tensorflow Model Prediction
 def model_prediction(test_image_path):
-    model = tf.keras.models.load_model(
-    "Trained_Model.keras",
-    compile=False,
-    safe_mode=False
-    )
+    @st.cache_resource
+    def load_model():
+        return tf.keras.models.load_model(
+        "Trained_Model.keras",
+        compile=False
+     )
+
+    model = load_model()
 
 
     img = tf.keras.utils.load_img(test_image_path, target_size=(224, 224))
