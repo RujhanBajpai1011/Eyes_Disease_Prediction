@@ -1,5 +1,6 @@
 import streamlit as st
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+import tf_keras as keras
 import numpy as np
 from PIL import Image
 import recommendation as rec
@@ -43,8 +44,7 @@ def load_retinanet_model():
             with open(MODEL_PATH, "wb") as f:
                 f.write(response.content)
     
-    return tf.keras.models.load_model(MODEL_PATH)
-
+    return keras.models.load_model(MODEL_PATH)
 # Model load karein
 model = load_retinanet_model()
 
@@ -142,5 +142,6 @@ elif page == "📖 Disease Library":
         
     with st.expander("Drusen"):
         st.write("Lipid deposits under the retina associated with age-related macular degeneration.")
+
 
 
