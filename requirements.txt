@@ -1,6 +1,7 @@
-tensorflow
+tensorflow==2.15.0
+tf_keras
 streamlit
 pillow
-numpy
+numpy<2.0.0
 matplotlib
 requests
