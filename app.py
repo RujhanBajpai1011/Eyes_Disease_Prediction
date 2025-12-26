@@ -31,7 +31,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # --- CORE FUNCTIONS ---
-MODEL_URL = "https://github.com/YOUR_USERNAME/YOUR_REPO/releases/download/v1.0.0/Trained_Model.h5"
+MODEL_URL = "https://github.com/RujhanBajpai1011/Eyes_Disease_Prediction/releases/download/v1.0.0/Trained_Model.h5"
 MODEL_PATH = "Trained_Model.h5"
 
 @st.cache_resource # Taaki model baar-baar download na ho
@@ -142,4 +142,5 @@ elif page == "📖 Disease Library":
         
     with st.expander("Drusen"):
         st.write("Lipid deposits under the retina associated with age-related macular degeneration.")
+
 
