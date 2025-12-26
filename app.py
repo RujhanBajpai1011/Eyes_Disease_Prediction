@@ -3,6 +3,8 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import recommendation as rec
+import requests
+import os
 
 # --- PAGE CONFIG ---
 st.set_page_config(
@@ -29,15 +31,22 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # --- CORE FUNCTIONS ---
-@st.cache_resource
-def load_my_model():
-    # Load model generated from Training_model.ipynb
-    return tf.keras.models.load_model("Trained_Model.h5")
+MODEL_URL = "https://github.com/YOUR_USERNAME/YOUR_REPO/releases/download/v1.0.0/Trained_Model.h5"
+MODEL_PATH = "Trained_Model.h5"
 
-try:
-    model = load_my_model()
-except Exception as e:
-    st.error(f"Error loading model: {e}")
+@st.cache_resource # Taaki model baar-baar download na ho
+def load_retinanet_model():
+    # Agar file local folder mein nahi hai, toh download karo
+    if not os.path.exists(MODEL_PATH):
+        with st.spinner("Downloading model from GitHub Releases... Please wait."):
+            response = requests.get(MODEL_URL)
+            with open(MODEL_PATH, "wb") as f:
+                f.write(response.content)
+    
+    return tf.keras.models.load_model(MODEL_PATH)
+
+# Model load karein
+model = load_retinanet_model()
 
 # Class order matches Training_model.ipynb categories
 CLASS_NAMES = ['CNV', 'DME', 'DRUSEN', 'NORMAL']
@@ -133,3 +142,4 @@ elif page == "📖 Disease Library":
         
     with st.expander("Drusen"):
         st.write("Lipid deposits under the retina associated with age-related macular degeneration.")
+
